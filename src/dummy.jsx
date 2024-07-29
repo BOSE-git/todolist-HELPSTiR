@@ -11,7 +11,7 @@ const tasks = [
       title: "Task 2",
       description: "Description for task 2",
       timestamp: new Date().toLocaleString(),
-      completed: false
+      completed: true
     },
     {
         id: crypto.randomUUID(),
