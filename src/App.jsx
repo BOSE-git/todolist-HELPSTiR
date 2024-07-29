@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from '@mui/material/Button';
+import './style.css';
 function App() {
   return (
     <>
@@ -22,22 +23,22 @@ function App() {
             <p>Title</p>
             <p>Description</p>
             <p>Time Stamp</p>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className='btn edit-bttn'>Edit</button>
+            <button className='btn del-btn'>Delete</button>
           </li>
           <li>
             <p>Title</p>
             <p>Description</p>
             <p>Time Stamp</p>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className='btn edit-bttn'>Edit</button>
+            <button className='btn del-btn'>Delete</button>
           </li>
           <li>
             <p>Title</p>
             <p>Description</p>
             <p>Time Stamp</p>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className='btn edit-bttn'>Edit</button>
+            <button className='btn del-btn'>Delete</button>
           </li>
         </ul>
       </div>
