@@ -7,6 +7,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [taskList, setTaskList] = useState(tasks);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   function handleSubmit(e){
     e.preventDefault();
@@ -31,6 +32,16 @@ function App() {
     setTaskList(updatedTasks);
   }
 
+  function handleCompleted(id){
+    const updatedTasks = taskList.map(task => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTaskList(updatedTasks);
+  }
+
   return (
     <>
       <h1>ToDo List</h1>
@@ -41,7 +52,7 @@ function App() {
           <label htmlFor="description">Description</label>
           <input id='description' type="text" placeholder='Description' value={desc} onChange={(e)=>setDesc(e.target.value)}/>
           <Button type='submit' startIcon={<ControlPointIcon />}>
-          </Button>
+          </Button>        
         </form>
       </div>
 
@@ -49,7 +60,10 @@ function App() {
         <ul>
         {taskList.map(task => (
           <li key={task.id}>
-            <p>{task.title}</p>
+            <span>
+              <input type="checkbox" onChange={() => handleCompleted(task.id)}/>
+              <p>{task.title}</p>
+            </span>
             <p>{task.description}</p>
             <p>{task.timestamp}</p>
             <button className='btn edit-bttn'>Edit</button>
