@@ -12,9 +12,11 @@ function App() {
     e.preventDefault();
     if(title && desc){
       const newTask = {
+        id: crypto.randomUUID(),
         title: title,
         description: desc,
-        timestamp: new Date().toLocaleString()
+        timestamp: new Date().toLocaleString(),
+        completed: false
       };
 
       setTaskList([...taskList, newTask]);
@@ -22,6 +24,11 @@ function App() {
       setDesc('');
       console.log(taskList);
     }
+  }
+
+  function handleDelete(id){
+    const updatedTasks = taskList.filter(task => task.id !== id);
+    setTaskList(updatedTasks);
   }
 
   return (
@@ -46,7 +53,7 @@ function App() {
             <p>{task.description}</p>
             <p>{task.timestamp}</p>
             <button className='btn edit-bttn'>Edit</button>
-            <button className='btn del-btn'>Delete</button>
+            <button className='btn del-btn' onClick={() => handleDelete(task.id)}>Delete</button>
           </li>
         ))}
           
