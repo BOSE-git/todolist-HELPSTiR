@@ -6,7 +6,16 @@ import tasksData from "./dummy.jsx";
 function App() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [taskList, setTaskList] = useState(tasksData);
+
+  const [taskList, setTaskList] = useState(() => {
+    const localValue = localStorage.getItem("ITEMS");
+    if(localValue == null){
+      return tasksData;
+    }
+
+    return JSON.parse(localValue);
+  });
+  
   const [isEditing, setIsEditing] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
   const [searchInput, setSearchInput] = useState("");
@@ -14,6 +23,10 @@ function App() {
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("ITEMS", JSON.stringify(taskList));
+  },[taskList]);
 
   // Parse query parameters
   function useQuery() {
