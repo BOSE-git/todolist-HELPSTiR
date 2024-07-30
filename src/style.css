@@ -105,6 +105,9 @@ p {
     width: 40%;
     max-height: 40px;
 }
+.todo-title{
+    cursor: pointer;
+}
 
 /* Buttons in the ToDo List */
 .todo-item .btn {

@@ -2,7 +2,7 @@ import React from 'react';
 
 function TodoItem({ task, isExpanded, onToggle, onCheckboxChange, onEdit, onDelete }) {
   return (
-    <li className="todo-item" onClick={() => onToggle(task.id)}>
+    <li className="todo-item">
       <div className="todo-item-contents">
         <span>
           <input
@@ -10,12 +10,12 @@ function TodoItem({ task, isExpanded, onToggle, onCheckboxChange, onEdit, onDele
             checked={task.completed} // Checkbox checked state
             onChange={() => onCheckboxChange(task.id)} // Handle checkbox change
           />
-          <p>{task.title}</p> {/* Display task title */}
+          <p className='todo-title' onClick={() => onToggle(task.id)}>{task.title}</p> {/* Display task title */}
         </span>
         {isExpanded && (
           <>
             <p>{task.description}</p> {/* Display task description if expanded */}
-            <p>{task.timestamp}</p> {/* Display task timestamp if expanded */}
+            <p>Last Updated: {task.timestamp}</p> {/* Display task timestamp if expanded */}
           </>
         )}
       </div>
