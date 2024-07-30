@@ -4,43 +4,43 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     color: #333;
     margin-top: 20px;
-  }
-  
-  /* Form container */
-  .input-container {
+}
+
+/* Form container */
+.input-container {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     margin: 20px auto;
     padding: 20px;
-  }
-  
-  form {
+}
+
+.input-container form {
     display: flex;
     flex-direction: column;
-  }
-  
-  label {
+}
+
+.input-container label {
     margin-bottom: 5px;
     color: #555;
-  }
-  
-  input[type="text"] {
+}
+
+.input-container input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
-  }
-  
-  button {
+}
+
+.input-container button {
     align-self: flex-end;
     background-color: #007bff;
     border: none;
@@ -51,46 +51,47 @@ body {
     font-size: 16px;
     display: flex;
     align-items: center;
-  }
-  
-  button:hover {
+}
+
+.input-container button:hover {
     background-color: #0056b3;
-  }
-  
-  /* ToDo List container */
-  .todo-list-container {
+}
+
+/* ToDo List container */
+.todo-list-container {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-  }
-  
-  ul {
+}
+
+ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  li {
+}
+
+li {
     background-color: #fafafa;
     border-bottom: 1px solid #eee;
     padding: 15px;
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-  }
-  
-  li:last-child {
+}
+
+li:last-child {
     border-bottom: none;
-  }
-  
-  p {
+}
+
+p {
     margin: 5px 0;
-  }
-  
-  /* Buttons in the ToDo List */
-  .btn {
+}
+
+/* Buttons in the ToDo List */
+.btn {
+    align-self: flex-end;
     margin: 5px 0;
     background-color: #007bff;
     border: none;
@@ -101,30 +102,29 @@ body {
     font-size: 14px;
     width: 80px; /* Set a fixed width */
     text-align: center;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .edit-bttn {
-    background-color: #9544ff; /* Green for edit */
-  }
-  
-  .edit-bttn:hover {
-    background-color: #218838;
-  }
-  
-  .del-btn {
-    background-color: #dc3545; /* Red for delete */
-  }
-  
-  .del-btn:hover {
-    background-color: #c82333;
-  }
-  
+}
 
-  li span {
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.edit-bttn {
+    background-color: #9544ff; /* Purple for edit */
+}
+
+.edit-bttn:hover {
+    background-color: #7333cc;
+}
+
+.del-btn {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.del-btn:hover {
+    background-color: #c82333;
+}
+
+li span {
     display: flex;
     align-items: center;
 }
@@ -133,6 +133,46 @@ li input[type="checkbox"] {
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    border-radius: 50%; /* Make the checkbox round */
+    border-radius: 50%; 
     cursor: pointer;
+}
+
+/* Search bar container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.search-container form {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    width: 60%;
+}
+
+.search-container button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 10px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
 }
