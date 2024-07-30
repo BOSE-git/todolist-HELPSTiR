@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import './style.css';
-import tasksData from './dummy.jsx';
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./style.css";
+import tasksData from "./dummy.jsx";
 
 function App() {
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
   const [taskList, setTaskList] = useState(tasksData);
   const [isEditing, setIsEditing] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
+  const [expandedTaskId, setExpandedTaskId] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,24 +21,32 @@ function App() {
   }
 
   const query = useQuery();
-  const searchQuery = query.get('search') || '';
+  const searchQuery = query.get("search") || "";
 
   useEffect(() => {
     setSearchInput(searchQuery);
   }, [searchQuery]);
 
   // Filter tasks based on search query
-  const filteredTasks = taskList.filter(task =>
-    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    task.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTasks = taskList.filter(
+    (task) =>
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   function handleSubmit(e) {
     e.preventDefault();
     if (title && desc) {
       if (isEditing) {
-        const updatedTaskList = taskList.map(task =>
-          task.id === currentTaskId ? { ...task, title, description: desc, timestamp: new Date().toLocaleString() } : task
+        const updatedTaskList = taskList.map((task) =>
+          task.id === currentTaskId
+            ? {
+                ...task,
+                title,
+                description: desc,
+                timestamp: new Date().toLocaleString(),
+              }
+            : task
         );
         setTaskList(updatedTaskList);
         setIsEditing(false);
@@ -48,13 +57,13 @@ function App() {
           title: title,
           description: desc,
           timestamp: new Date().toLocaleString(),
-          completed: false
+          completed: false,
         };
 
         setTaskList([...taskList, newTask]);
       }
-      setTitle('');
-      setDesc('');
+      setTitle("");
+      setDesc("");
       console.log(taskList);
     }
   }
@@ -67,7 +76,7 @@ function App() {
   }
 
   function handleDelete(taskId) {
-    const updatedTaskList = taskList.filter(task => task.id !== taskId);
+    const updatedTaskList = taskList.filter((task) => task.id !== taskId);
     setTaskList(updatedTaskList);
   }
 
@@ -77,10 +86,14 @@ function App() {
   }
 
   function handleCheckboxChange(taskId) {
-    const updatedTaskList = taskList.map(task =>
+    const updatedTaskList = taskList.map((task) =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
     setTaskList(updatedTaskList);
+  }
+
+  function toggleDropDown(taskId) {
+    setExpandedTaskId((prevId) => (prevId === taskId ? null : taskId));
   }
 
   return (
@@ -89,11 +102,23 @@ function App() {
       <div className="input-container">
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Title</label>
-          <input id='title' type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input
+            id="title"
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <label htmlFor="description">Description</label>
-          <input id='description' type="text" placeholder='Description' value={desc} onChange={(e) => setDesc(e.target.value)} />
-          <button type='submit'>
-            {isEditing ? 'Update Task' : 'Add Task'}
+          <input
+            id="description"
+            type="text"
+            placeholder="Description"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <button type="submit">
+            {isEditing ? "Update Task" : "Add Task"}
           </button>
         </form>
       </div>
@@ -107,27 +132,62 @@ function App() {
             onChange={(e) => setSearchInput(e.target.value)}
           />
           <button type="submit">Search</button>
-          <button type="button" onClick={() => { setSearchInput(''); navigate('/'); }}>Clear</button>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchInput("");
+              navigate("/");
+            }}
+          >
+            Clear
+          </button>
         </form>
       </div>
 
       <div className="todo-list-container">
         <ul>
-          {filteredTasks.map(task => (
-            <li key={task.id}>
-            <span>
-            <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleCheckboxChange(task.id)}
-              />
-              <p>{task.title}</p>
-            </span>
-              
-              <p>{task.description}</p>
-              <p>{task.timestamp}</p>
-              <button className='btn edit-bttn' onClick={() => handleEdit(task)}>Edit</button>
-              <button className='btn del-btn' onClick={() => handleDelete(task.id)}>Delete</button>
+          {filteredTasks.map((task) => (
+            <li
+              className="todo-item"
+              key={task.id}
+              onClick={() => toggleDropDown(task.id)}
+            >
+              <div className="todo-item-contents">
+                <span>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleCheckboxChange(task.id)}
+                  />
+                  <p>{task.title}</p>
+                </span>
+                {expandedTaskId === task.id && (
+                  <>
+                    <p>{task.description}</p>
+                    <p>{task.timestamp}</p>
+                  </>
+                )}
+              </div>
+              <div className="list-btn-container">
+                <button
+                  className="btn edit-bttn"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the dropdown from toggling when editing
+                    handleEdit(task);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn del-btn"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the dropdown from toggling when deleting
+                    handleDelete(task.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>

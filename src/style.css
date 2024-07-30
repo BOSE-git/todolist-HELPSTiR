@@ -89,9 +89,25 @@ p {
     margin: 5px 0;
 }
 
+.todo-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.todo-item .todo-item-contents{
+    width: 60%;
+}
+
+.todo-item .list-btn-container{
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    max-height: 40px;
+}
+
 /* Buttons in the ToDo List */
-.btn {
-    align-self: flex-end;
+.todo-item .btn {
     margin: 5px 0;
     background-color: #007bff;
     border: none;
@@ -104,23 +120,23 @@ p {
     text-align: center;
 }
 
-.btn:hover {
+.todo-item .btn:hover {
     background-color: #0056b3;
 }
 
-.edit-bttn {
+.todo-item .edit-bttn {
     background-color: #9544ff; /* Purple for edit */
 }
 
-.edit-bttn:hover {
+.todo-item .edit-bttn:hover {
     background-color: #7333cc;
 }
 
-.del-btn {
+.todo-item .del-btn {
     background-color: #dc3545; /* Red for delete */
 }
 
-.del-btn:hover {
+.todo-item .del-btn:hover {
     background-color: #c82333;
 }
 
@@ -133,7 +149,6 @@ li input[type="checkbox"] {
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    border-radius: 50%; 
     cursor: pointer;
 }
 
